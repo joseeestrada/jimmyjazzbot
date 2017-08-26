@@ -28,7 +28,7 @@ def add_to_cart(url):
 			
 	size_chosen = input('From the list, enter the desired PID: ')
 	cart_endpoint = 'http://www.jimmyjazz.com/cart-request/cart/add/%s/1'%(size_chosen)
-	print ('Attempting to add ' + size_chosen + cart_endpoint)
+	print ('Attempting to add ' + size_chosen + ': ' + cart_endpoint)
 	cart_response = session.get(cart_endpoint)
 	
 	return '"success":1' in cart_response.text
@@ -87,7 +87,7 @@ def checkout():
 	soup = bs(response2.text, 'html.parser')
 	form_id = soup.find('input', {'name': 'form_build_id'})['id']
 	payload2 = {
-		'form_build_id': form_id,
+		'form_build_id': form_build_id,
 		'form_id': 'cart_confirm_form'
 	}
 	response3 = session.post('https://www.jimmyjazz.com/cart/confirm', data=payload2)
